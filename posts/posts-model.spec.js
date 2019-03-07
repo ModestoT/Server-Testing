@@ -13,12 +13,7 @@ describe('Posts Model', () => {
                 content: 'Well would you look at that'
             });
 
-            expect(post).toBe({
-                title: 'This is a test',
-                content: 'Well would you look at that'
-            });
-
-            expect(post).toHaveLength(1);
+            expect(post.title).toBe('This is a test');
         });
     });
 });
