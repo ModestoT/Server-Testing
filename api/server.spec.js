@@ -55,5 +55,15 @@ describe('server.js', () => {
 
             expect(del.status).toBe(204);
         });
+
+        it('should return a statu s code of 400 if the id doesn not exist', async () => {
+            const post = {title: 'yo', content: 'Something'};
+            const res = await request(server).post('/posts').send(post);
+            expect(res.type).toMatch(/json/i);
+            
+            const del = await request(server).del('/posts/2');
+
+            expect(del.status).toBe(400);
+        })
     });
 });
