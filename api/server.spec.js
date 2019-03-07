@@ -1,8 +1,13 @@
 const request = require('supertest');
 
+const db = require('../data/dbConfig.js');
 const server = require('./server.js');
 
 describe('server.js', () => {
+    afterEach(async () => {
+        await db('posts').truncate();
+    });
+
     describe('GET /', () => {
         it('Should return a status code of 200 OK', async () => {
             const res = await request(server).get('/');
@@ -45,8 +50,8 @@ describe('server.js', () => {
             const post = {title: 'yo', content: 'Something'};
             const res = await request(server).post('/posts').send(post);
             expect(res.type).toMatch(/json/i);
-
-            const del = await request(server).del('/posts').send(res.body.id);
+            
+            const del = await request(server).del(`/posts/${res.body.id}`);
 
             expect(del.status).toBe(204);
         });
