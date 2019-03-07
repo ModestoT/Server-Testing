@@ -18,7 +18,7 @@ describe('Posts Model', () => {
     });
 
     describe('deletePost()', () => {
-        it('should delete a post which the provided ID', async () => {
+        it('should delete a post with the provided ID', async () => {
             const post = await Posts.addPost({
                 title: 'This is a test',
                 content: 'Well would you look at that'
@@ -26,7 +26,7 @@ describe('Posts Model', () => {
 
             const del = await Posts.deletePost(post.id);
 
-            expect(del).toBeDefined();
+            expect(del).toBeTruthy();
         })
     });
 });
