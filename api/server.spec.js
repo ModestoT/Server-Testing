@@ -38,5 +38,17 @@ describe('server.js', () => {
             expect(res.type).toMatch(/json/i);
             expect(res.body).toMatchObject({title: 'yo', content: 'Something'});
         });
-    })
+    });
+
+    describe('DELETE /posts', () => {
+        it('should return a status code of 204', async () => {
+            const post = {title: 'yo', content: 'Something'};
+            const res = await request(server).post('/posts').send(post);
+            expect(res.type).toMatch(/json/i);
+
+            const del = await request(server).del('/posts').send(res.body.id);
+
+            expect(del.status).toBe(204);
+        });
+    });
 });
